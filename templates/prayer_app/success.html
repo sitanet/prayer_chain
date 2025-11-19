@@ -1,0 +1,46 @@
+{% extends 'prayer_app/base.html' %}
+
+{% block title %}Prayer Commitment Success{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-red text-white text-center">
+                <h3 class="mb-0">🙏 Thank You, {{ member.full_name }}!</h3>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-success text-center">
+                    <h5>✅ Your prayer commitment has been recorded. God bless you!</h5>
+                </div>
+                
+                <h5 class="text-gold">📅 Your Prayer Time Commitments:</h5>
+                {% if selected_times %}
+                    <div class="row">
+                        {% for time_slot in selected_times %}
+                            <div class="col-md-6 mb-2">
+                                <div class="card border-warning">
+                                    <div class="card-body py-2">
+                                        <strong class="text-red">⏰ {{ time_slot.get_prayer_time_display }}</strong><br>
+                                        <small class="text-muted">Submitted: {{ time_slot.submitted_at|date:"M d, Y g:i A" }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted">No prayer times selected yet.</p>
+                {% endif %}
+                
+                <div class="mt-4 d-grid gap-2">
+                    <a href="{% url 'select_time' %}" class="btn btn-gold">➕ Add Another Prayer Time</a>
+                    <a href="{% url 'report' %}" class="btn btn-red">📊 View Full Prayer Schedule</a>
+                    <div class="text-center mt-2">
+                        <small class="text-muted">To register a new member, contact your administrator</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
